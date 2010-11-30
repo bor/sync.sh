@@ -5,9 +5,11 @@ Using timestamp file for detect direction.
 USAGE
 
 . sync.rc && ./sync.sh [direction]
+or
+source sync.rc && ./sync.sh [direction]
 
 where
-    direction - in or out
+    direction - in or out, force direction if set
 
 also this script need setup some vars in rc file
  required:
