@@ -1,0 +1,23 @@
+
+Simple sync between two(or more) hosts by rsync & ssh.
+Using timestamp file for detect direction.
+
+USAGE
+
+. sync.rc && ./sync.sh [direction]
+
+where
+    direction - in or out
+
+also this script need setup some vars in rc file
+ required:
+    SYNC_USER       - username
+    SYNC_SERVER     - hostname or ip
+    DIR_LOCAL       - local dir
+    DIR_REMOTE      - remote dir on server
+    RSYNC_FLAGS     - rsync options
+and optional:
+    SYNC_MAKE_LS_R  - set defined if you want generate ls-R file
+
+see *.rc.example files
+
