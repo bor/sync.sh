@@ -1,3 +1,4 @@
+sync.sh
 
 Simple sync between two(or more) hosts by rsync & ssh.
 Using timestamp file for detect direction.
@@ -22,4 +23,9 @@ and optional:
     SYNC_MAKE_LS_R  - set defined if you want generate ls-R file
 
 see *.rc.example files
+
+TIPS & TRICKS
+
+* Use alias (in .bashrc/.bash_profile) like:
+    alias sync_photo=". /path/to/sync.photo.rc && /path/to/sync.sh"
 
