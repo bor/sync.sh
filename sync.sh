@@ -13,6 +13,9 @@ RSYNC_FLAGS="-e ssh --delete --owner --group --links --perms --times --progress 
 # check variables
 VARS="SYNC_USER SYNC_SERVER DIR_LOCAL DIR_REMOTE RSYNC_FLAGS"
 for VAR in $VARS; do
+    if [[ $DEBUG == 1 ]]; then
+        echo "VAR: $VAR = ${!VAR}"
+    fi
     if [[ -z ${!VAR} ]]; then
         echo "Need to set $VAR !"
         echo -e $USAGE
@@ -31,7 +34,7 @@ fi
 RUN=`ps ax | grep sync.sh | grep -v grep | wc -l`
 if [[ "$RUN" -gt 2 ]]; then
     echo "already running $RUN"
-    echo `ps jawx | grep sync | grep music`
+    echo `ps jawx | grep sync.sh`
     exit 1
 fi
 
@@ -54,6 +57,9 @@ fi
 if [[ "$DIRECTION" == 'out' ]]; then
     echo ".OUT.";
     if [[ $SYNC_MAKE_LS_R ]]; then
+        if [[ $DEBUG == 1 ]]; then
+            echo "MAKE ls -R"
+        fi
         # TODO : make ls-R work propertly
         cd $DIR_LOCAL
         ls -R -1 --group-directories-first . > ls-R;
