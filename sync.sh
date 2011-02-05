@@ -40,9 +40,9 @@ fi
 
 # choose direction
 DIRECTION=$1
-TIMESTAMP_LOCAL=`stat --format=%Y $DIR_LOCAL/$TIMESTAMP_FILE`
-TIMESTAMP_REMOTE=`ssh $SYNC_USER@$SYNC_SERVER stat --format=%Y $DIR_REMOTE/$TIMESTAMP_FILE`
 if [[ ! $DIRECTION ]]; then
+    TIMESTAMP_LOCAL=`stat --format=%Y $DIR_LOCAL/$TIMESTAMP_FILE`
+    TIMESTAMP_REMOTE=`ssh $SYNC_USER@$SYNC_SERVER stat --format=%Y $DIR_REMOTE/$TIMESTAMP_FILE`
     if [[ $TIMESTAMP_LOCAL -eq $TIMESTAMP_REMOTE ]]; then
         echo 'TIMESTAMP is equal, so there is nothing to do !'
         exit
