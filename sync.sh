@@ -22,7 +22,7 @@ for VAR in $VARS; do
         exit 1
     fi
 done
-SYNC_MAKE_LS_R=1
+
 if [[ $SYNC_MAKE_LS_R ]]; then
     TIMESTAMP_FILE="ls-R"
 else
@@ -39,22 +39,22 @@ if [[ "$RUN" -gt 2 ]]; then
 fi
 
 # choose direction
-DIRECTION=$1
+SYNC_DIRECTION=$1
 TIMESTAMP_LOCAL=`stat --format=%Y $DIR_LOCAL/$TIMESTAMP_FILE`
 TIMESTAMP_REMOTE=`ssh $SYNC_USER@$SYNC_SERVER stat --format=%Y $DIR_REMOTE/$TIMESTAMP_FILE`
-if [[ ! $DIRECTION ]]; then
+if [[ ! $SYNC_DIRECTION ]]; then
     if [[ $TIMESTAMP_LOCAL -eq $TIMESTAMP_REMOTE ]]; then
         echo 'TIMESTAMP is equal, so there is nothing to do !'
         exit
     elif [[ $TIMESTAMP_LOCAL -gt $TIMESTAMP_REMOTE ]]; then
-        DIRECTION='out'
+        SYNC_DIRECTION='out'
     elif [[ $TIMESTAMP_LOCAL -lt $TIMESTAMP_REMOTE ]]; then
-        DIRECTION='in'
+        SYNC_DIRECTION='in'
     fi
 fi
 
 # sync here
-if [[ "$DIRECTION" == 'out' ]]; then
+if [[ "$SYNC_DIRECTION" == 'out' ]]; then
     echo ".OUT.";
     if [[ $SYNC_MAKE_LS_R ]]; then
         if [[ $DEBUG == 1 ]]; then
@@ -67,16 +67,16 @@ if [[ "$DIRECTION" == 'out' ]]; then
         touch "$DIR_LOCAL/$TIMESTAMP_FILE"
     fi
     rsync $RSYNC_FLAGS "$DIR_LOCAL/" "$SYNC_USER@$SYNC_SERVER:$DIR_REMOTE";
-elif [[ "$DIRECTION" == 'in' ]]; then
+elif [[ "$SYNC_DIRECTION" == 'in' ]]; then
     echo ".IN.";
     rsync $RSYNC_FLAGS "$SYNC_USER@$SYNC_SERVER:$DIR_REMOTE/" $DIR_LOCAL;
 else
     echo 'ERROR: Cant detect direction (in/out) !'
 fi
 
+# TODO
 # clean variables
 #for VAR in $VARS; do
-    # TODO
     #export ${VAR}=
 #done
 

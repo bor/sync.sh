@@ -1,6 +1,7 @@
 # example
 export SYNC_USER="username"
 export SYNC_SERVER="sync.server"
+export SYNC_MAKE_LS_R=1
 export DIR_LOCAL="/home/username/photo"
 export DIR_REMOTE="/home/username/photo"
 export RSYNC_FLAGS="-e ssh --bwlimit=256 --delete --owner --group --links --perms --times --progress --recursive --exclude=-*"

@@ -24,6 +24,11 @@ and optional:
 
 see *.rc.example files
 
+KNOW BUGS
+
+* Detect direction not work under FreeBSD (and maybe other *BSD),
+  because 'stat' has different options
+
 TIPS & TRICKS
 
 * Use alias (in .bashrc/.bash_profile) like:
